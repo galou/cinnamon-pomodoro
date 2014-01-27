@@ -1,10 +1,9 @@
-// GI_TYPELIB_PATH="/usr/lib/cinnamon:/usr/lib/muffin" run-js-test tests/timer.js
+// GJS_PATH="cinnamon-pomodoro/pomodoro@gregfreeman.org"/ GI_TYPELIB_PATH="/usr/lib/cinnamon:/usr/lib/muffin" ./run-js-test cinnamon-pomodoro/tests/timer.js
 
 const Mainloop = imports.mainloop;
 const Environment = imports.ui.environment;
 Environment.init();
 
-imports.searchPath.unshift('.');
 const TimerModule = imports.timer;
 
 function timerTick(timer) {
@@ -23,9 +22,7 @@ timerQueue.addTimer(shortBreakTimer);
 timerQueue.addTimer(pomodoroTimer);
 timerQueue.addTimer(shortBreakTimer);
 
-pomodoroTimer.connect('timer-started', timerTick);
 pomodoroTimer.connect('timer-tick', timerTick);
-shortBreakTimer.connect('timer-started', timerTick);
 shortBreakTimer.connect('timer-tick', timerTick);
 
 timerQueue.connect('timer-queue-finished', function(timerQueue) {
